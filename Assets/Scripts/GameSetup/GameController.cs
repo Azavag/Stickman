@@ -1,7 +1,4 @@
-using AmazingAssets.CurvedWorld.Example;
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public enum GameState
@@ -44,12 +41,10 @@ public class GameController : MonoBehaviour
         {
             ChangeGameState(GameState.GameProccess);
             navigationController.ChangeStartToIngame();          
-            //playerMovement.SwitchInput(true);
             playerMovement.enabled = true;
             spawner.StartLevel();
             soundController.Play("BattleBackground");
-        }
-        
+        }        
     } 
     public void EndLevel(bool success)
     {
@@ -114,11 +109,9 @@ public class GameController : MonoBehaviour
     public void QuitGame()
     {
         StopPause();
-        EventManager.InvokePlayerDied();
- 
+        EventManager.InvokePlayerDied(); 
         playerController.isImmortal = true;
         playerController.GetComponent<Animator>().SetFloat("speed", 0);
-        //playerMovement.SwitchInput(false);
         navigationController.ShowIngameCanvas(false);
         EndLevel(false);
     }
@@ -130,6 +123,20 @@ public class GameController : MonoBehaviour
     public int GetCurrentLevelNumber()
     {
         return currentLevel;
+    }
+
+    public IEnumerator ShowTutorialWindow()
+    {
+        yield return new WaitForSeconds(2f);
+        Time.timeScale = 0;
+        soundController.MakeClickSound();
+        navigationController.ShowTutorialCanvas(true);
+    }
+    public void HideTutorialWindow()
+    {
+        soundController.MakeClickSound();
+        navigationController.ShowTutorialCanvas(false);
+        Time.timeScale = 1;
     }
 
 }

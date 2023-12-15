@@ -120,6 +120,9 @@ public class EnemySpawnerController : MonoBehaviour
     void SpawnBoss()
     {
         currentSpawnPoint.SpawnEnemy(bossPrefab);
+        if (levelNumber == 0)
+            StartCoroutine(gameController.ShowTutorialWindow());
+        
     }
     
     void OnEnemyDied()

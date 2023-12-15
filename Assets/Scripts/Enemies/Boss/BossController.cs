@@ -48,10 +48,10 @@ public class BossController : EnemyController, IDamagable
             return;
         if (underGround)
             CheckGround();
-        else animator.SetFloat("speed", agent.velocity.sqrMagnitude);
+        else animator.SetFloat("speed", agent.velocity.magnitude);
 
         if (isRunAway)
-            animator.SetFloat("speed", 1f);
+            animator.SetFloat("speed", 1f);      
     }
     private void FixedUpdate()
     {
@@ -76,8 +76,9 @@ public class BossController : EnemyController, IDamagable
             RunAwayChangeDirectionTimer();
             RunAwayResetTimer();
             RunAwayFromPlayer();
-        }    
+        }
     }
+
     public void ResetWeaponState(bool resetState)
     {     
         if (!canRunAway)
@@ -113,18 +114,18 @@ public class BossController : EnemyController, IDamagable
     void RunAwayFromPlayer()
     {
         rb.MovePosition(rb.position + randomDirection * runAwaySpeed * Time.fixedDeltaTime);
-        
         if (randomDirection != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(randomDirection);
             targetRotation.x = 0f;
             targetRotation.z = 0f;
-            rb.MoveRotation(Quaternion.RotateTowards(rb.rotation, targetRotation, runRotationSpeed * Time.fixedDeltaTime));
+            rb.MoveRotation(Quaternion.RotateTowards(rb.rotation, targetRotation,
+                runRotationSpeed * Time.fixedDeltaTime));            
         }
     }   
     void RunAwayChangeDirectionTimer()
     {      
-        timeSinceLastDirectionChange += Time.deltaTime;
+        timeSinceLastDirectionChange += Time.fixedDeltaTime;
         // Если прошло достаточно времени, сменяем направление
         if (timeSinceLastDirectionChange >= changeDirectionInterval)
         {
@@ -143,7 +144,7 @@ public class BossController : EnemyController, IDamagable
     }
     void RunAwayResetTimer()
     {
-        runAwayResetTimer += Time.deltaTime;
+        runAwayResetTimer += Time.fixedDeltaTime;
         if (runAwayResetTimer >= runAwayResetInterval)
         {
             ResetWeaponState(false);

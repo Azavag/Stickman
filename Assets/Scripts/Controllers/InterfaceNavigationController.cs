@@ -14,6 +14,7 @@ public class InterfaceNavigationController : MonoBehaviour
     [SerializeField] GameObject resourcesCanvas;
     [SerializeField] GameObject settingsCanvas;
     [SerializeField] GameObject joystickCanvas;
+    [SerializeField] GameObject tutorialCanvas;
     [Header("Тексты")]
     [SerializeField] TextMeshProUGUI levelNumberText;
     [SerializeField] TextMeshProUGUI endLevelText;
@@ -38,8 +39,6 @@ public class InterfaceNavigationController : MonoBehaviour
             winLevelInterText = "Victory";
             loseLevelInterText = "Failure";
         }
-
-
     }
     public void CanvasesSetup()
     {
@@ -47,6 +46,7 @@ public class InterfaceNavigationController : MonoBehaviour
         ShowIngameCanvas(false);
         ShowPauseCanvas(false);
         ShowSettingsCanvas(false);
+        ShowTutorialCanvas(false);
         ShowJoystickCanvas(true);
         ShowStartCanvas(true);
         ShowShopCanvas(true);
@@ -80,12 +80,12 @@ public class InterfaceNavigationController : MonoBehaviour
     public void ChangeMenuToSettings()
     {
         ShowSettingsCanvas(true);
-        animationController.ShowSettingsPanelPanel();
+        animationController.ShowSettingsPanel();
     }
     public void ChangePauseToSettings()
     {
         ShowSettingsCanvas(true);
-        animationController.ShowSettingsPanelPanel();
+        animationController.ShowSettingsPanel();
     }
     public void ChangeSettingsToMenu()
     {
@@ -140,5 +140,11 @@ public class InterfaceNavigationController : MonoBehaviour
     {
         joystickCanvas.SetActive(state);
         joystickCanvas.transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(false);
+    }
+    public void ShowTutorialCanvas(bool state)
+    {
+        tutorialCanvas.SetActive(state);
+        if (state)
+            animationController.ShowTutorialPanel();
     }
 }

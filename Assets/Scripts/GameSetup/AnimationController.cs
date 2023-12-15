@@ -25,10 +25,12 @@ public class AnimationController : MonoBehaviour
     [SerializeField] TextMeshProUGUI startLevelText;
     [SerializeField] float fadeAnimTime;
     [Header("Панель настроек")]
-    [SerializeField] Transform SettingsPanel;
+    [SerializeField] Transform settingsPanel;
     [SerializeField] float settingsInScaleAnimTime;
     [SerializeField] float settingsOutScaleAnimTime;
     [SerializeField] Ease settingAnimEase;
+    [Header("Туториал")]
+    [SerializeField] Transform tutorialPanel;
     void Start()
     {      
         AnimateStartLevelText();
@@ -41,16 +43,22 @@ public class AnimationController : MonoBehaviour
         startLevelText.transform.DOScale(0.9f, fadeAnimTime).
             SetLoops(-1, LoopType.Yoyo).Play();
     }
-    public void ShowSettingsPanelPanel()
+    public void ShowSettingsPanel()
     {
-        SettingsPanel.localScale = Vector3.zero;
-        SettingsPanel.DOScale(1f, settingsInScaleAnimTime).
+        settingsPanel.localScale = Vector3.zero;
+        settingsPanel.DOScale(1f, settingsInScaleAnimTime).
             SetEase(settingAnimEase).Play().SetAutoKill().SetUpdate(true);        
     }
     public void HideSettingsPanel(TweenCallback tweenCallback)
     {
-        SettingsPanel.DOScale(0, settingsOutScaleAnimTime).
+        settingsPanel.DOScale(0, settingsOutScaleAnimTime).
             SetEase(settingAnimEase).Play().OnComplete(tweenCallback).SetAutoKill().SetUpdate(true);
+    }
+    public void ShowTutorialPanel()
+    {
+        tutorialPanel.localScale = Vector3.zero;
+        tutorialPanel.DOScale(1f, settingsInScaleAnimTime).
+            SetEase(settingAnimEase).Play().SetAutoKill().SetUpdate(true);
     }
 
     public void ShowEndLevelPanel()  
