@@ -68,7 +68,6 @@ mergeInto(LibraryManager.library, {
       console.log(_data);
       const myJSON = JSON.stringify(_data);
       myGameInstance.SendMessage('YandexSDK', 'SetPlayerInfo', myJSON);
-      //myGameInstance.SendMessage('Loader', 'LoadGame');
     });
     }   
   },
@@ -78,7 +77,6 @@ mergeInto(LibraryManager.library, {
     if(sdkReady)
       {
         myGameInstance.SendMessage('SceneLoader', 'ToggleSdkReady'); 
-        sdkReady = false;
       }
   },
 

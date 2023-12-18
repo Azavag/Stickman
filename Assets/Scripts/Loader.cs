@@ -1,13 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Loader : MonoBehaviour
 {
     [SerializeField] GameObject canvases, sdk, controllers, player;
-    [SerializeField] bool inEditor;
-    [SerializeField] Progress progress;
-    [SerializeField] YandexSDK yandex;
+    bool isObjectsLoaded;
 
     private void Awake()
     {
@@ -19,18 +15,23 @@ public class Loader : MonoBehaviour
     private void Start()
     {
         Application.targetFrameRate = -1;
-#if UNITY_EDITOR
-        yandex.gameObject.SetActive(true);
-        progress.gameObject.SetActive(true);
-#endif
-        StartCoroutine(Loading());
     }
-    IEnumerator Loading()
+
+    private void Update()
     {
+        if(YandexSDK.dataIsLoaded)
+        {
+            Loading();          
+        }
+    }
+    public void Loading()
+    {
+        Debug.Log("LoadObjects");
         sdk.gameObject.SetActive(true);
+        controllers.SetActive(true);
         player.gameObject.SetActive(true);
         canvases.SetActive(true);
-        controllers.SetActive(true);
-        yield return null;
+        gameObject.GetComponent<Loader>().enabled = false;
     }
+
 }

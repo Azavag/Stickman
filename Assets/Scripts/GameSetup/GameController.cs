@@ -61,9 +61,9 @@ public class GameController : MonoBehaviour
         {
             currentLevel++;
             Progress.Instance.playerInfo.levelNumber = currentLevel;
-            YandexSDK.Save();
             YandexSDK.SetToLeaderboard();
         }
+        YandexSDK.Save();
     }
 
     IEnumerator EndingLevelCouroutine()

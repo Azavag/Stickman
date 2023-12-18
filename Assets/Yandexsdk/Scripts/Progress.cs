@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -31,6 +29,7 @@ public class Progress : MonoBehaviour
     {
         if (Instance == null)
         {
+            Debug.LogWarning("ProgressAwake");
             transform.parent = null;
             DontDestroyOnLoad(gameObject);
             Instance = this;

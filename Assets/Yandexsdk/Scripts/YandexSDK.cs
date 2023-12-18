@@ -50,7 +50,7 @@ public class YandexSDK : MonoBehaviour
     //bool isDataGetting;
     //string deviceType;
     [HideInInspector]
-    public bool dataIsLoaded;
+    public static bool dataIsLoaded;
     //string domainType;
     private void Awake()
     {

@@ -8,32 +8,42 @@ public class SceneLoader : MonoBehaviour
     private static extern void CheckSdkReady();
     [SerializeField] YandexSDK yandexSDK;
     [SerializeField] Progress progress;
-    [SerializeField] bool isSdkReady;
+    [SerializeField] Loader objectsLoader;
+    bool isSdkReady;
 
-
+    private void Awake()
+    {
+        Debug.LogWarning("SceneLoaderAwake");
+        ToggleSdk(false);
+    }
+    private void Start()
+    {
+#if UNITY_EDITOR
+        ToggleSdk(true);
+        objectsLoader.Loading();
+#endif
+    }
     private void Update()
     {
 #if !UNITY_EDITOR
+if (!isSdkReady) 
         CheckSdkReady();
-        if (isSdkReady)
-        {       
-            progress.gameObject.SetActive(true);
-        }
-        if(isSdkReady && yandexSDK.dataIsLoaded)
-            SceneManager.LoadScene(1);
 #endif
-#if UNITY_EDITOR
-        progress.gameObject.SetActive(true);
-        SceneManager.LoadScene(1);
-#endif
-
     }
-
+    //из jslib
     public void ToggleSdkReady()
     {
+        Debug.Log("ToggleSdkReady");
         isSdkReady = true;
-        yandexSDK.gameObject.SetActive(true);
-        progress.gameObject.SetActive(true);
+        ToggleSdk(true);
+        //objectsLoader.Loading();
+    }
+
+    void ToggleSdk(bool state)
+    {       
+        yandexSDK.gameObject.SetActive(state);
+        progress.gameObject.SetActive(state);
+        
     }
     
 }

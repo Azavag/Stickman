@@ -53,8 +53,7 @@ public class ShopController : MonoBehaviour
         SuccessBuy();      
         playerUpgrade.UpgradeMovementSpeed();
         movementUpgradePriceLevel++;
-        Progress.Instance.playerInfo.speedUpgradeLevel = movementUpgradePriceLevel;
-        YandexSDK.Save();
+        Progress.Instance.playerInfo.speedUpgradeLevel = movementUpgradePriceLevel;       
         if (movementUpgradePriceLevel == maxUpgradeCount)
             return;
         ChangePriceLevel(out movementSpeedUpgradePrice, movementUpgradePriceLevel);
@@ -73,7 +72,6 @@ public class ShopController : MonoBehaviour
         playerUpgrade.UpgradeRotationSpeed();
         rotationUpgradePriceLevel++;
         Progress.Instance.playerInfo.rotationUpgradeLevel = rotationUpgradePriceLevel;
-        YandexSDK.Save();
         if (rotationUpgradePriceLevel == maxUpgradeCount)
             return;
         ChangePriceLevel(out rotationSpeedUpgradePrice, rotationUpgradePriceLevel);
@@ -93,12 +91,11 @@ public class ShopController : MonoBehaviour
         playerUpgrade.UpgradeDealingDamage();
         damageUpgradePriceLevel++;
         Progress.Instance.playerInfo.damageUpgradeLevel = damageUpgradePriceLevel;
-        YandexSDK.Save();
         if (damageUpgradePriceLevel == maxUpgradeCount)
             return;
         ChangePriceLevel(out damageUpgradePrice, damageUpgradePriceLevel);
         UpdatePriceText(damagePriceText, damageUpgradePrice);
-       
+        YandexSDK.Save();       
     }
 
     void ChangePriceLevel(out int price,int upgLevel)
